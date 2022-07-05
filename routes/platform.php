@@ -2,22 +2,27 @@
 
 declare(strict_types=1);
 
-use App\Orchid\Screens\Examples\ExampleCardsScreen;
-use App\Orchid\Screens\Examples\ExampleChartsScreen;
-use App\Orchid\Screens\Examples\ExampleFieldsAdvancedScreen;
-use App\Orchid\Screens\Examples\ExampleFieldsScreen;
-use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
-use App\Orchid\Screens\Examples\ExampleScreen;
-use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
-use App\Orchid\Screens\Experiment\ExperimentsList;
+use Tabuna\Breadcrumbs\Trail;
+use Illuminate\Support\Facades\Route;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
+use App\Orchid\Screens\Queue\QueueEditScreen;
+use App\Orchid\Screens\Queue\QueueListScreen;
+use App\Orchid\Screens\Video\VideoEditScreen;
+use App\Orchid\Screens\Video\VideoListScreen;
+use App\Orchid\Screens\Examples\ExampleScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
-use Illuminate\Support\Facades\Route;
-use Tabuna\Breadcrumbs\Trail;
+use App\Orchid\Screens\Examples\ExampleCardsScreen;
+use App\Orchid\Screens\Examples\ExampleChartsScreen;
+use App\Orchid\Screens\Examples\ExampleFieldsScreen;
+use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
+use App\Orchid\Screens\Experiment\ExperimentsEditScreen;
+use App\Orchid\Screens\Experiment\ExperimentsListScreen;
+use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
+use App\Orchid\Screens\Examples\ExampleFieldsAdvancedScreen;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,5 +121,18 @@ Route::group(['middleware' => 'language'], function () {
 
     //Route::screen('idea', Idea::class, 'platform.screens.idea');
 
-    Route::screen('/experiments', ExperimentsList::class)->name('experiments.list');
+    Route::screen('/experiments', ExperimentsListScreen::class)->name('experiments.list');
+    Route::screen('/experiments/create', ExperimentsEditScreen::class)->name('experiments.create');
+    Route::screen('/experiments/edit/{experiment}', ExperimentsEditScreen::class)->name('experiments.edit');
+    Route::post('/experiments/remove/{experiment}', [ExperimentsListScreen::class, 'remove'])->name('experiments.remove');
+
+    Route::screen('/videos', VideoListScreen::class)->name('videos.list');
+    Route::screen('/videos/create', VideoEditScreen::class)->name('videos.create');
+    Route::screen('/videos/edit/{video}', VideoEditScreen::class)->name('videos.edit');
+    Route::post('/videos/remove/{video}', [VideoListScreen::class, 'remove'])->name('videos.remove');
+
+    Route::screen('/queues', QueueListScreen::class)->name('queues.list');
+    Route::screen('/queues/create', QueueEditScreen::class)->name('queues.create');
+    Route::screen('/queues/edit/{queue}', QueueEditScreen::class)->name('queues.edit');
+    Route::post('/queues/remove/{queue}', [QueueListScreen::class, 'remove'])->name('queues.remove');
 });

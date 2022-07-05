@@ -31,6 +31,12 @@ class PlatformProvider extends OrchidServiceProvider
             Menu::make(__('experiments.experiments'))
                 ->icon('monitor')
                 ->route('experiments.list'),
+            Menu::make(__('experiments.videos'))
+            ->icon('camrecorder')
+            ->route('videos.list'),
+            Menu::make(__('experiments.queues'))
+            ->icon('task')
+            ->route('queues.list'),
             // Menu::make('Example screen')
             //     ->icon('monitor')
             //     ->route('platform.example')
