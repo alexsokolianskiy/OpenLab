@@ -15,6 +15,11 @@ class Queue extends Model
      * @var array
      */
     protected $fillable = [
-        'title'
+        'title', 'time', 'current_user', 'start_time', 'end_time'
+    ];
+
+    protected $dates = [
+        'start_time',
+        'end_time'
     ];
 }
