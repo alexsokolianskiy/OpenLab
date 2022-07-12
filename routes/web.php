@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['middleware' => 'language'], function () {
+    Route::get('/experiment/{experiment}', [ExperimentController::class, 'index']);
 
+    Auth::routes();
 
-Route::get('/experiment/{experiment}', [ExperimentController::class, 'index']);
-
-Auth::routes();
-
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});

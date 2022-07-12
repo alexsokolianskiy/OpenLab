@@ -69,7 +69,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{route('home')}}">{{ config('app.name') }} </a>
+                <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name') }} </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -89,14 +89,16 @@
 
                     <div class="d-flex align-items-center">
                         @guest
-                            <a href="{{ route('login') }}"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
-                            <a href="{{ route('register') }}"><button type="button" class="btn btn-warning">Sign-up</button></a>
+                            <a href="{{ route('login') }}"><button type="button"
+                                    class="btn btn-outline-light me-2">Login</button></a>
+                            <a href="{{ route('register') }}"><button type="button"
+                                    class="btn btn-warning">Sign-up</button></a>
                         @endguest
                         @auth
-                            <div class="flex-shrink-0 dropdown">
-                                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
+                            <div class="flex-shrink-0 dropdown" style="margin-right: 15px">
+                                <a href="#" class="d-block text-decoration-none dropdown-toggle"
                                     id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="" alt="mdo" width="32" height="32" class="rounded-circle">
+                                    {{auth()->user()->name}}
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end text-small shadow"
                                     aria-labelledby="dropdownUser2">
@@ -105,16 +107,30 @@
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
+                                            onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}</a></li>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
                                         @csrf
                                     </form>
                                 </ul>
                             </div>
                         @endauth
-
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ language()->getName($code = 'default') }}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                @foreach (language()->allowed() as $code => $name)
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{{ language()->back($code) }}">{{ $name }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
