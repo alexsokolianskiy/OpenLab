@@ -2,9 +2,11 @@
 
 namespace App\Orchid\Layouts\Experiment;
 
+use App\Models\Queue;
 use Orchid\Screen\Field;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Layouts\Rows;
+use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Fields\SimpleMDE;
 
 class ExperimentsEditLayout extends Rows
@@ -29,6 +31,9 @@ class ExperimentsEditLayout extends Rows
             ->max(255)
             ->required()
             ->title(__('experiments.title')),
+            Relation::make('experiment.queue_id')
+            ->fromModel(Queue::class, 'title')
+            ->title(__('experiments.queue')),
             SimpleMDE::make('experiment.description')
             ->title(__('experiments.description'))
         ];

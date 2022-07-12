@@ -4,7 +4,9 @@ namespace App\Orchid\Screens\Experiment;
 
 use Orchid\Screen\Screen;
 use App\Models\Experiment;
+use App\Models\Queue;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Orchid\Screen\Actions\Button;
 use Orchid\Support\Facades\Toast;
 use App\Orchid\Layouts\Experiment\ExperimentsEditLayout;
@@ -78,9 +80,15 @@ class ExperimentsEditScreen extends Screen
         $request->validate([
             'experiment.title' => ['required'],
             'experiment.description' => ['required'],
+            'experiment.queue_id' => [Rule::exists(Queue::class, 'id')],
         ]);
 
-        $experiment->fill($request->get('experiment'));
+        $data = $request->get('experiment');
+        if (!isset($data['queue_id'])) {
+            $data['queue_id'] = null;
+        }
+
+        $experiment->fill($data);
         $experiment->save();
 
         Toast::info(__('experiments.success'));

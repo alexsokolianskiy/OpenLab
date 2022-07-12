@@ -17,6 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table
+            ->foreignId('queue_id')
+            ->nullable()
+            ->references('id')
+            ->on('queues')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

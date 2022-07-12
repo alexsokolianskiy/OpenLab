@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Queue;
 use Orchid\Screen\AsSource;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Experiment extends Model
 {
@@ -18,5 +19,11 @@ class Experiment extends Model
     protected $fillable = [
         'title',
         'description',
+        'queue_id'
     ];
+
+    public function queue()
+    {
+        return $this->hasOne(Queue::class, 'id', 'queue_id');
+    }
 }

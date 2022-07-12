@@ -22,4 +22,9 @@ class Queue extends Model
         'start_time',
         'end_time'
     ];
+
+    public function experiments()
+    {
+        return $this->belongsToMany(Experiment::class);
+    }
 }
