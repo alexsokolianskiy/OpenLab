@@ -75,7 +75,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    {!! App\Services\Menu\MenuService::template() !!}
+                    {{-- <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
@@ -85,7 +87,7 @@
                         <li class="nav-item">
                             <a class="nav-link disabled">Disabled</a>
                         </li>
-                    </ul>
+                    </ul> --}}
 
                     <div class="d-flex align-items-center">
                         @guest
@@ -96,7 +98,7 @@
                         @endguest
                         @auth
                             <div class="flex-shrink-0 dropdown" style="margin-right: 15px">
-                                <a href="#" class="d-block text-decoration-none dropdown-toggle"
+                                <a href="#" class="d-block text-decoration-none dropdown-toggle text-light"
                                     id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{auth()->user()->name}}
                                 </a>
