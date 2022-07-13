@@ -5,6 +5,8 @@ declare(strict_types=1);
 use Tabuna\Breadcrumbs\Trail;
 use Illuminate\Support\Facades\Route;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\Page\PageEditScreen;
+use App\Orchid\Screens\Page\PageListScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
@@ -135,4 +137,9 @@ Route::group(['middleware' => 'language'], function () {
     Route::screen('/queues/create', QueueEditScreen::class)->name('queues.create');
     Route::screen('/queues/edit/{queue}', QueueEditScreen::class)->name('queues.edit');
     Route::post('/queues/remove/{queue}', [QueueListScreen::class, 'remove'])->name('queues.remove');
+
+    Route::screen('/page', PageListScreen::class)->name('pages.list');
+    Route::screen('/page/create', PageEditScreen::class)->name('pages.create');
+    Route::screen('/page/edit/{page}', PageEditScreen::class)->name('pages.edit');
+    Route::post('/page/remove/{page}', [PageListScreen::class, 'remove'])->name('page.remove');
 });

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExperimentController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,4 +21,5 @@ Route::group(['middleware' => 'language'], function () {
     Auth::routes();
 
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/pages/{page}', [PageController::class, 'index'])->name('page.index');
 });
