@@ -2,6 +2,8 @@
 
 namespace App\Services\Page;
 
+use App\Models\Page;
+
 class PageService
 {
 
@@ -30,6 +32,15 @@ class PageService
         if ($exists) {
             unlink($filePath);
         }
+    }
+
+    public static function getRoutes()
+    {
+        $pages = Page::select('title', 'view')->get()->mapWithKeys(function($item, $key) {
+            return [url(sprintf('/pages/%s', $item['view'])) => 'Pages['. $item['title'].']'];
+        } );
+
+        return $pages->toArray();
     }
 
 }

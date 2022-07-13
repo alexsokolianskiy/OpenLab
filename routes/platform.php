@@ -25,6 +25,8 @@ use App\Orchid\Screens\Experiment\ExperimentsEditScreen;
 use App\Orchid\Screens\Experiment\ExperimentsListScreen;
 use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
 use App\Orchid\Screens\Examples\ExampleFieldsAdvancedScreen;
+use App\Orchid\Screens\Menu\MenuEditScreen;
+use App\Orchid\Screens\Menu\MenuListScreen;
 
 /*
 |--------------------------------------------------------------------------
@@ -142,4 +144,9 @@ Route::group(['middleware' => 'language'], function () {
     Route::screen('/page/create', PageEditScreen::class)->name('pages.create');
     Route::screen('/page/edit/{page}', PageEditScreen::class)->name('pages.edit');
     Route::post('/page/remove/{page}', [PageListScreen::class, 'remove'])->name('page.remove');
+
+    Route::screen('/menu', MenuListScreen::class)->name('menu.list');
+    Route::screen('/menu/create', MenuEditScreen::class)->name('menu.create');
+    Route::screen('/menu/edit/{menu}', MenuEditScreen::class)->name('menu.edit');
+    Route::post('/menu/remove/{menu}', [MenuListScreen::class, 'remove'])->name('menu.remove');
 });
