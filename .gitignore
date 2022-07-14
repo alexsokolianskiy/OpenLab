@@ -1,3 +1,5 @@
+/resources/views/pages/*.blade.php
+!/resources/views/pages/template.blade.php
 /node_modules
 /public/hot
 /public/storage
