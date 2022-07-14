@@ -7,6 +7,21 @@ use App\Models\Page;
 class PageService
 {
 
+    public static function getViewContent($view)
+    {
+        $filePath = resource_path(sprintf('views/pages/%s.blade.php', $view));
+        $exists = file_exists($filePath);
+        if ($exists) {
+            $re = '/@section\(\'content\'\)(.*)@endsection/s';
+            preg_match_all($re, file_get_contents($filePath), $matches);
+            if ($matches) {
+                return $matches[1][0];
+            }
+        }
+
+        return null;
+    }
+
     public function getViewPath($title)
     {
         return resource_path('views/pages') . '/' . $title . '.blade.php';

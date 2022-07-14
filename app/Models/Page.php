@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Page\PageService;
 use Orchid\Screen\AsSource;
 use Spatie\Sluggable\HasSlug;
 use Illuminate\Database\Eloquent\Model;
@@ -26,6 +27,11 @@ class Page extends Model
     {
         return SlugOptions::create()->generateSlugsFrom('title')
         ->saveSlugsTo('view');
+    }
+
+    public function getCodeAttribute()
+    {
+        return PageService::getViewContent($this->view);
     }
 
     public function getRouteKeyName()

@@ -4,6 +4,7 @@ namespace App\Orchid\Layouts\Page;
 
 use App\Models\Queue;
 use Orchid\Screen\Field;
+use Orchid\Screen\Fields\Code;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Layouts\Rows;
 use Orchid\Screen\Fields\Relation;
@@ -27,12 +28,13 @@ class PageEditLayout extends Rows
     {
         return [
             Input::make('page.title')
-            ->type('text')
-            ->max(255)
-            ->required()
-            ->title(__('experiments.title')),
-            SimpleMDE::make('page.view')
-            ->title(__('experiments.description'))
+                ->type('text')
+                ->max(255)
+                ->required()
+                ->title(__('experiments.title')),
+            Code::make('page.code')
+                ->title(__('experiments.description'))
+
         ];
     }
 }

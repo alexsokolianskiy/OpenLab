@@ -83,7 +83,7 @@ class PageEditScreen extends Screen
         $pageService = new PageService();
         $request->validate([
             'page.title' => ['required'],
-            'page.view' => ['required'],
+            'page.code' => ['string'],
         ]);
         if ($page->exists() && $page->view) {
             $pageService->deleteView($page->view);
@@ -92,7 +92,7 @@ class PageEditScreen extends Screen
         $title = $request->input('page.title');
         $page->title = $title;
         $page->save();
-        $pageService->saveView($request->input('page.view'), $page->view);
+        $pageService->saveView($request->input('page.code'), $page->view);
         Toast::info(__('experiments.success'));
 
         return redirect()->route('pages.list');
