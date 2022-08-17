@@ -29,7 +29,11 @@ return [
     */
 
     'disks' => [
-
+        'system' => [
+            'driver' => 'local',
+            'root' => '/',
+            'throw' => false,
+        ],
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
