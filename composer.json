@@ -9,10 +9,13 @@
         "akaunting/laravel-language": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.11",
+        "laravel/horizon": "^5.9",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "orchid/platform": "^12.4",
+        "pbmedia/laravel-ffmpeg": "^8.1",
+        "predis/predis": "^2.0",
         "spatie/laravel-sluggable": "^3.4",
         "spatie/menu": "^3.0"
     },
