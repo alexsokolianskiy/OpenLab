@@ -16,6 +16,10 @@ class Video extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'status', 'type', 'source', 'slug'
+        'title', 'status', 'type', 'source', 'active'
+    ];
+
+    protected $casts = [
+        'type' => 'integer'
     ];
 }

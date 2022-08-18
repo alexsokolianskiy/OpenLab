@@ -74,6 +74,9 @@ class VideoEditScreen extends Screen
     {
         $request->validate([
             'video.title' => ['required'],
+            'video.type' => ['required', 'integer'],
+            'video.source' => ['required', 'string'],
+            'video.active' => ['required', 'boolean']
         ]);
 
         $video->fill($request->get('video'));

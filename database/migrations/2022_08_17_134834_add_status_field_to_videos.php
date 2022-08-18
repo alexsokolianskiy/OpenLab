@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('status')->default(VideoStatus::STOPPED->value);
             $table->string('source');
             $table->string('type')->default(VideoType::DEVICE->value);
-            $table->string('slug');
+            $table->boolean('active')->default(false);
         });
     }
 
@@ -34,7 +34,7 @@ return new class extends Migration
             $table->dropColumn('status');
             $table->dropColumn('source');
             $table->dropColumn('type');
-            $table->dropColumn('slug');
+            $table->dropColumn('active');
         });
     }
 };

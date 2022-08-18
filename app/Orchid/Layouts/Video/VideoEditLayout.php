@@ -5,16 +5,13 @@ namespace App\Orchid\Layouts\Video;
 use Orchid\Screen\Field;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Layouts\Rows;
+use Orchid\Screen\Fields\Select;
+use App\Services\Video\VideoType;
+use Orchid\Screen\Fields\Group;
+use Orchid\Screen\Fields\Switcher;
 
 class VideoEditLayout extends Rows
 {
-    /**
-     * Used to create the title of a group of form elements.
-     *
-     * @var string|null
-     */
-    protected $title;
-
     /**
      * Get the fields elements to be displayed.
      *
@@ -22,12 +19,32 @@ class VideoEditLayout extends Rows
      */
     protected function fields(): iterable
     {
+        $type = $this->query->get('video.type');
         return [
-            Input::make('video.title')
-            ->type('text')
-            ->max(255)
-            ->required()
-            ->title(__('experiments.title')),
+            Group::make([
+                Input::make('video.title')
+                    ->type('text')
+                    ->max(255)
+                    ->required()
+                    ->title(__('experiments.title')),
+                Switcher::make('video.active')
+                    ->title('Active')->sendTrueOrFalse(),
+            ]),
+            Group::make([
+                Select::make('video.type')
+                    ->title('Video input type')
+                    ->options(
+                        array_flip(VideoType::options())
+                    )
+                    ->required()
+                    ->value($type),
+                Input::make('video.source')
+                    ->title('Video source')
+                    ->type('text')
+                    ->max(255)
+                    ->required(),
+            ])
+
         ];
     }
 }
