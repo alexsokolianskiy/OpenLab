@@ -4,7 +4,11 @@ namespace App\Services\Video;
 
 use Exception;
 use FFMpeg\FFMpeg;
+use Monolog\Logger;
 use App\Models\Video;
+use App\Services\Video\VideoType;
+use Monolog\Handler\StreamHandler;
+use App\Services\Video\StreamVideo;
 use Illuminate\Support\Facades\Storage;
 use App\Services\Video\Formatters\FFmpegFormatter;
 use App\Services\Video\Formatters\HLSDeviceFormatter;
@@ -30,8 +34,13 @@ class HLSStream extends StreamVideo
 
     public function run()
     {
-
-        $ffmpeg = FFMpeg::create();
+        $videoLogger = $this->createLogger();
+        $ffmpeg = FFMpeg::create(
+            configuration: [
+                'timeout' => 0
+            ],
+            logger: $videoLogger
+        );
         if (!$this->formatter) {
             throw new Exception('no such input device/address');
         }
@@ -39,7 +48,19 @@ class HLSStream extends StreamVideo
         $format = $this->formatter->format();
         $video = $ffmpeg->openAdvanced([$input]);
         $video->map(array('0:v'), $format, $this->getPlayListPath());
-        $video->save();
+        try{
+            $video->save();
+        } catch (\Exception $e) {
+            $videoLogger->error('Stream runner error', [$e->getCode(), $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    public function createLogger() : Logger
+    {
+        $videoLogger = new Logger('video-'.$this->video->id);
+        $videoLogger->pushHandler(new StreamHandler(storage_path('logs/'. 'video-'.$this->video->id.'.log')), Logger::DEBUG);
+        return $videoLogger;
     }
 
     public function getStreamUrl(): string

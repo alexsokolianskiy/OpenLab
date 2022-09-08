@@ -3,12 +3,14 @@
 namespace App\Orchid\Layouts\Video;
 
 use App\Models\Video;
+use App\Services\Video\VideoStatus;
 use Orchid\Screen\TD;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Fields\Group;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Fields\Label;
 
 class VideoListLayout extends Table
 {
@@ -34,6 +36,11 @@ class VideoListLayout extends Table
             ->sort()
             ->cantHide()
             ->filter(Input::make()),
+            TD::make('status', __('experiments.status'))
+            ->sort()
+            ->cantHide()->render(function (Video $video) {
+                return Label::make()->value(VideoStatus::from($video->status)->name);
+            }),
             TD::make(__('Actions'))
             ->align(TD::ALIGN_CENTER)
             ->width('100px')

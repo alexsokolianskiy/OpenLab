@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1830925ee11d6efca3ccd4442cb184d9",
+    "content-hash": "2fe864ca7984f38425ff428e8599c25e",
     "packages": [
         {
             "name": "akaunting/laravel-language",
@@ -67,6 +67,52 @@
                 "source": "https://github.com/akaunting/laravel-language/tree/1.0.21"
             },
             "time": "2022-06-02T10:48:01+00:00"
+        },
+        {
+            "name": "alexsokolianskiy/linux-process-manager",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexsokolianskiy/linux-process-manager.git",
+                "reference": "b2eb29d812a596427944d94f6b494fc75c8e8669"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexsokolianskiy/linux-process-manager/zipball/b2eb29d812a596427944d94f6b494fc75c8e8669",
+                "reference": "b2eb29d812a596427944d94f6b494fc75c8e8669",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "files": [],
+                "psr-4": {
+                    "Alexsokolianskiy\\ProcessManager\\": "src",
+                    "Alexsokolianskiy\\ProcessManager\\Tests\\": "tests"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Sokolianskiy",
+                    "email": "alexsokolianskiy@gmail.com"
+                }
+            ],
+            "description": "Linux process manager",
+            "support": {
+                "issues": "https://github.com/alexsokolianskiy/linux-process-manager/issues",
+                "source": "https://github.com/alexsokolianskiy/linux-process-manager/tree/master"
+            },
+            "time": "2022-09-08T19:05:04+00:00"
         },
         {
             "name": "archtechx/enums",
@@ -9553,7 +9599,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "alexsokolianskiy/linux-process-manager": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

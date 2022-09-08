@@ -7,6 +7,7 @@ use Orchid\Screen\Screen;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Support\Facades\Toast;
+use Illuminate\Support\Facades\Artisan;
 use App\Orchid\Layouts\Video\VideoEditLayout;
 
 class VideoEditScreen extends Screen
@@ -81,7 +82,9 @@ class VideoEditScreen extends Screen
 
         $video->fill($request->get('video'));
         $video->save();
-
+        if ($video->active) {
+            Artisan::queue('run:stream', ['video' => $video->id]);
+        }
         Toast::info(__('experiments.success'));
 
         return redirect()->route('videos.list');

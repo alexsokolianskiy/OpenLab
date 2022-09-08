@@ -17,12 +17,12 @@ abstract class StreamVideo
     abstract public function getStreamUrl() : string;
 
     public function setPlayVideoStatus() {
-        $this->video->status = VideoStatus::STOPPED->value;
+        $this->video->status = VideoStatus::RUNNING->value;
         $this->video->save();
     }
     public function setStopVideoStatus()
     {
-        $this->video->status = VideoStatus::RUNNING->value;
+        $this->video->status = VideoStatus::STOPPED->value;
         $this->video->save();
     }
 }
