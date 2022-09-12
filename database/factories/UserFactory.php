@@ -26,6 +26,20 @@ class UserFactory extends Factory
         ];
     }
 
+    public function orchidAdmin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'permissions' =>  [
+                    "platform.index" => true,
+                    "platform.systems.roles" => true,
+                    "platform.systems.users" => true,
+                    "platform.systems.attachment" => true
+                ]
+            ];
+        });
+    }
+
     /**
      * Indicate that the model's email address should be unverified.
      *

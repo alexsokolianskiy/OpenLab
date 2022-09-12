@@ -5,8 +5,12 @@ namespace App\Orchid\Screens\Video;
 use App\Models\Video;
 use Orchid\Screen\Screen;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Tests\Unit\Video\VideoTest;
+use App\Services\Video\VideoType;
 use Orchid\Screen\Actions\Button;
 use Orchid\Support\Facades\Toast;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Support\Facades\Artisan;
 use App\Orchid\Layouts\Video\VideoEditLayout;
 
@@ -65,9 +69,9 @@ class VideoEditScreen extends Screen
         return [VideoEditLayout::class];
     }
 
-         /**
+    /**
      * @param Request $request
-     * @param Experiment    $experiment
+     * @param Video $video
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -75,12 +79,12 @@ class VideoEditScreen extends Screen
     {
         $request->validate([
             'video.title' => ['required'],
-            'video.type' => ['required', 'integer'],
+            'video.type' => ['required', 'integer', new Enum(VideoType::class)],
             'video.source' => ['required', 'string'],
             'video.active' => ['required', 'boolean']
         ]);
 
-        $video->fill($request->get('video'));
+        $video->fill($request->input('video'));
         $video->save();
         if ($video->active) {
             Artisan::queue('run:stream', ['video' => $video->id]);

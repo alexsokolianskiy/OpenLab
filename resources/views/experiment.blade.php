@@ -11,7 +11,7 @@
 <video id="video"></video>
 <script>
   var video = document.getElementById('video');
-  var videoSrc = '{{asset('storage/hls.m3u8')}}';
+  var videoSrc = '{{asset('storage/playlists/1/1.m3u8')}}';
   if (Hls.isSupported()) {
     var hls = new Hls();
     hls.loadSource(videoSrc);

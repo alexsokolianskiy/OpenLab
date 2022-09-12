@@ -74,12 +74,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexsokolianskiy/linux-process-manager.git",
-                "reference": "b2eb29d812a596427944d94f6b494fc75c8e8669"
+                "reference": "f525f5631fadbbc7389c7093d5164a1fa44744e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexsokolianskiy/linux-process-manager/zipball/b2eb29d812a596427944d94f6b494fc75c8e8669",
-                "reference": "b2eb29d812a596427944d94f6b494fc75c8e8669",
+                "url": "https://api.github.com/repos/alexsokolianskiy/linux-process-manager/zipball/f525f5631fadbbc7389c7093d5164a1fa44744e4",
+                "reference": "f525f5631fadbbc7389c7093d5164a1fa44744e4",
                 "shasum": ""
             },
             "require": {
@@ -112,7 +112,7 @@
                 "issues": "https://github.com/alexsokolianskiy/linux-process-manager/issues",
                 "source": "https://github.com/alexsokolianskiy/linux-process-manager/tree/master"
             },
-            "time": "2022-09-08T19:05:04+00:00"
+            "time": "2022-09-10T19:04:34+00:00"
         },
         {
             "name": "archtechx/enums",

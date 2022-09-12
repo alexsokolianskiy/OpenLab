@@ -17,7 +17,7 @@ return new class extends Migration
     {
         Schema::table('videos', function (Blueprint $table) {
             $table->string('status')->default(VideoStatus::STOPPED->value);
-            $table->string('source');
+            $table->string('source')->nullable();
             $table->string('type')->default(VideoType::DEVICE->value);
             $table->boolean('active')->default(false);
         });
