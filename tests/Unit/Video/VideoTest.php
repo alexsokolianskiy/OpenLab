@@ -5,14 +5,17 @@ namespace Tests\Unit\Video;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Video;
-use Orchid\Support\Testing\ScreenTesting;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\CreateOrchidAdmin;
+use Tests\WithFakeVideoDevice;
+use App\Services\Video\VideoStatus;
+use Orchid\Support\Testing\ScreenTesting;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Alexsokolianskiy\ProcessManager\LinuxProcessManager;
 
 class VideoTest extends TestCase
 {
-    use RefreshDatabase, ScreenTesting, CreateOrchidAdmin, WithFaker;
+    use RefreshDatabase, ScreenTesting, CreateOrchidAdmin, WithFaker, WithFakeVideoDevice;
 
 
     public function test_video_success_create()
@@ -65,6 +68,26 @@ class VideoTest extends TestCase
             'video' =>  $origin->toArray()
         ]);
         $this->assertEquals($source, $origin->source);
+    }
+
+    public function test_video_stream_should_start_if_active()
+    {
+        $user = $this->createAdmin();
+        $videoDev = $this->fakeVideo();
+        $screen = $this->screen('videos.create')->actingAs($user);
+        $video = Video::factory()->make([
+            'source' => $videoDev,
+            'active' => true
+        ]);
+        $screen->display();
+        $screen->method('save', [
+            'video' => $video->toArray()
+        ]);
+        $this->assertDatabaseHas('videos', $video->toArray());
+        $pm = new LinuxProcessManager();
+        $savedVideo = Video::where('source', '=', $videoDev)->first();
+        $processPid = $pm->getPid(VideoStatus::getProcessName($savedVideo));
+        $this->assertNotNull($processPid);
     }
 
     // public function test_video_stream_should_start_on_startup()
